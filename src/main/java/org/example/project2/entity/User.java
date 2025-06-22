@@ -1,6 +1,7 @@
 package org.example.project2.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class User {
     private String username;
@@ -12,8 +13,9 @@ public class User {
     private LocalDate creatTime;
     private String avatar_url;
     private Enterprise enterprise;
+    private List<News> history;//published news by this user
 
-    public User(String username,String password,String phone,String email,String gender,String status, LocalDate creatTime,String avatar_url,Enterprise enterprise){
+    public User(String username,String password,String phone,String email,String gender,String status, LocalDate creatTime,String avatar_url,Enterprise enterprise,List<News> history) {
         this.username = username;
         this.password = password;
         this.phone=phone;
@@ -23,6 +25,7 @@ public class User {
         this.creatTime = creatTime;
         this.avatar_url = avatar_url;
         this.enterprise = enterprise;
+        this.history = history;
     }
     public String getUsername() {
         return username;
@@ -94,5 +97,13 @@ public class User {
 
     public void setEnterprise(Enterprise enterprise) {
         this.enterprise = enterprise;
+    }
+
+    public List<News> getHistory() {
+        return history;
+    }
+
+    public void setHistory(List<News> history) {
+        this.history = history;
     }
 }

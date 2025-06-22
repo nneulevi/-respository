@@ -5,13 +5,13 @@ import java.util.List;
 
 public class News {
     private Long id;
-    private String title;
+    private String title;//key
     private String summary;
     private String content; // 富文本
     private String coverImage;//photo
     private User author;
     private Integer viewCount;//number of views
-    private LocalDateTime publishTime;
+    private LocalDateTime publishTime;//when passed,get the local time
     private List<newsTag> tags;
     public News(Long id,String title,String summary,String content,String coverImage,User author,Integer viewCount,LocalDateTime publishTime,List<newsTag> tags){
         this.id = id;
