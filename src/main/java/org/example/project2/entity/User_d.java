@@ -1,9 +1,8 @@
 package org.example.project2.entity;
 
 import java.time.LocalDate;
-import java.util.List;
 
-public class User {
+public class User_d {
     private String username;
     private String password;
     private String phone;
@@ -13,20 +12,18 @@ public class User {
     private LocalDate creatTime;
     private String avatar_url;
     private Long enterprise;
-    private List<News> history;//published news by this user
-
-    public User(String username,String password,String phone,String email,String gender,Integer status, LocalDate creatTime,String avatar_url,Long enterprise,List<News> history) {
+    public User_d(String username, String password, String phone, String email, String gender, Integer status, LocalDate creatTime, String avatar_url, Long enterprise){
         this.username = username;
         this.password = password;
-        this.phone=phone;
+        this.phone = phone;
         this.email = email;
         this.gender = gender;
         this.status = status;
         this.creatTime = creatTime;
         this.avatar_url = avatar_url;
         this.enterprise = enterprise;
-        this.history = history;
     }
+
     public String getUsername() {
         return username;
     }
@@ -75,14 +72,6 @@ public class User {
         this.status = status;
     }
 
-    public String getAvatar_url() {
-        return avatar_url;
-    }
-
-    public void setAvatar_url(String avatar_url) {
-        this.avatar_url = avatar_url;
-    }
-
     public LocalDate getCreatTime() {
         return creatTime;
     }
@@ -91,19 +80,19 @@ public class User {
         this.creatTime = creatTime;
     }
 
+    public String getAvatar_url() {
+        return avatar_url;
+    }
+
+    public void setAvatar_url(String avatar_url) {
+        this.avatar_url = avatar_url;
+    }
+
     public Long getEnterprise() {
         return enterprise;
     }
 
     public void setEnterprise(Long enterprise) {
         this.enterprise = enterprise;
-    }
-
-    public List<News> getHistory() {
-        return history;
-    }
-
-    public void setHistory(List<News> history) {
-        this.history = history;
     }
 }

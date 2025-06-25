@@ -12,8 +12,8 @@ public class News {
     private User author;
     private Integer viewCount;//number of views
     private LocalDateTime publishTime;//when passed,get the local time
-    private List<newsTag> tags;
-    public News(Long id,String title,String summary,String content,String coverImage,User author,Integer viewCount,LocalDateTime publishTime,List<newsTag> tags){
+    private String tags;
+    public News(Long id,String title,String summary,String content,String coverImage,User author,Integer viewCount,LocalDateTime publishTime,String tags){
         this.id = id;
         this.title = title;
         this.summary = summary;
@@ -89,11 +89,11 @@ public class News {
         this.publishTime = publishTime;
     }
 
-    public List<newsTag> getTags() {
+    public String getTags() {
         return tags;
     }
 
-    public void setTags(List<newsTag> tags) {
+    public void setTags(String tags) {
         this.tags = tags;
     }
 }
