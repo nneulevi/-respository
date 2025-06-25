@@ -82,7 +82,7 @@ public class UserController {
     }
 
     @RequestMapping("/changeUserinfo")//当前登录中的人，要修改的人，修改信息
-    public ResponseEntity<Integer> change(@Param("now_username") String now_username, @Param("username") String username, @RequestBody User_d user){
+    public ResponseEntity<Integer> change(@RequestParam(required = false) String now_username, @RequestParam(required = false) String username, @RequestBody User_d user){
         User_d now = userMapper.findByUsername(now_username);
         int id = now.getStatus();
         if(id==0 && !now_username.equals(username)) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(-1);
@@ -94,8 +94,10 @@ public class UserController {
         if(user.getAvatar_url()!=null) old.setAvatar_url(user.getAvatar_url());
         if(id==1 && user.getStatus()!=null) old.setStatus(user.getStatus());
         if(user.getEnterprise()!=null) old.setEnterprise(user.getEnterprise());
-        int result = userMapper.change_info(old);
+        int result = userMapper.change_info(old,username);
         return ResponseEntity.status(result > 0 ? 200 : 500).body(result);
     }
+
+
 
 }

@@ -56,8 +56,8 @@ public interface UserMapper {//由于List的原因，使用User_d与数据库匹
             @Param("offset") int offset,
             @Param("limit") int limit);
 
-    @Update("update users set username=#{username},password=#{passowrd},email=#{email},phone=#{phone},status=#{status},avatar_url=#{avatar_url},enterprise=#{enterprise}")
-    int change_info(User_d user);
+    @Update("update users set username=#{username},password=#{password},email=#{email},phone=#{phone},status=#{status},avatar_url=#{avatar_url},enterprise=#{enterprise} where username=#{old_username}")
+    int change_info(User_d user,@Param("old_username") String old_username);
 
     @Select({
             "<script>",
