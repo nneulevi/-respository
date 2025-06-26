@@ -96,4 +96,5 @@ public class News {
     public void setTags(String tags) {
         this.tags = tags;
     }
+
 }

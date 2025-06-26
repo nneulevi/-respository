@@ -135,4 +135,7 @@ public interface NewsMapper {
             @Param("startDate") LocalDateTime startDate,
             @Param("endDate") LocalDateTime endDate
     );
+
+    @Delete("delete from news where id=#{id}")
+    int deleteById(@Param("id") long id);
 }

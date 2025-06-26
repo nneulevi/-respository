@@ -2,9 +2,8 @@ package org.example.project2.Controller;
 
 import org.example.project2.Mapper.NewsMapper;
 import org.example.project2.Mapper.UserMapper;
-import org.example.project2.entity.News;
-import org.example.project2.entity.PageResult;
-import org.example.project2.entity.User_d;
+import org.example.project2.Mapper.comentsMapper;
+import org.example.project2.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +20,8 @@ public class NewsController {
     NewsMapper newsMapper;
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    comentsMapper comentsMapper;
     @RequestMapping("/submit")//基于普通用户，插到ready_news中
     public ResponseEntity<Integer> Add(@RequestBody News news){
         int result = newsMapper.submit(news);
@@ -92,7 +93,7 @@ public class NewsController {
         return ResponseEntity.ok(result);
     }
 
-    @RequestMapping("/get_by_count")
+    @RequestMapping("/get_by_count")//按点击量排序
     public ResponseEntity<PageResult<News>> get_by_count(
             @RequestParam(defaultValue = "1") int pageNum,
             @RequestParam(defaultValue = "10") int pageSize,
@@ -110,7 +111,7 @@ public class NewsController {
         return ResponseEntity.ok(result);
     }
 
-    @RequestMapping("/get_newsdetail")//点击标题后展示具体内容
+    @RequestMapping("/get_newsdetail")//点击标题后展示具体内容，新增评论,加载时获得基础用户信息，随后调用coments相关接口加载评论
     public ResponseEntity<News> getDetail(@RequestParam(required = false) String title){
         News news = newsMapper.selectBytitle(title);
         return ResponseEntity.ok(news);
@@ -135,7 +136,7 @@ public class NewsController {
         return ResponseEntity.status(result > 0 ? 200 : 500).body(result);
     }
 
-    @RequestMapping("/changeNewsInfo")
+    @RequestMapping("/changeNewsInfo")//当前登录用户，修改新闻id,修改内容
     public ResponseEntity<Integer> changeNewsInfo(
             @RequestParam String now_username,
             @RequestParam Long news_id,
@@ -172,5 +173,69 @@ public class NewsController {
         int result = newsMapper.modify(oldNews, news_id);
 
         return ResponseEntity.status(result > 0 ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR).body(result);
+    }
+
+    @RequestMapping("/addComments")//其中就包含新闻id
+    public ResponseEntity<Integer> addComment(@RequestBody coments coments){
+        int result = comentsMapper.insert(coments);
+        return ResponseEntity.status(result > 0 ? 200 : 500).body(result);
+    }
+
+    @RequestMapping("/getCommentsByTime")
+    public ResponseEntity<PageResult<coments>> getCommentsByTime(
+            @RequestParam(required = false) long news_id,
+            @RequestParam(defaultValue = "1") int pageNum,
+            @RequestParam(defaultValue = "10") int pageSize) {
+        int offset = (pageNum - 1) * pageSize;
+        List<coments> list = comentsMapper.findByNewsIdOrderByTime(news_id, pageSize, offset);
+        long total = comentsMapper.countByNewsId(news_id);
+        return ResponseEntity.ok(new PageResult<>(pageNum, pageSize, total, list));
+    }
+
+    @RequestMapping("/getCommentsByLikes")//可以默认调用Likes
+    public ResponseEntity<PageResult<coments>> getCommentsByLikes(
+            @RequestParam long news_id,
+            @RequestParam(defaultValue = "1") int pageNum,
+            @RequestParam(defaultValue = "10") int pageSize) {
+        int offset = (pageNum - 1) * pageSize;
+        List<coments> list = comentsMapper.findByNewsIdOrderByLikes(news_id, pageSize, offset);
+        long total = comentsMapper.countByNewsId(news_id);
+        return ResponseEntity.ok(new PageResult<>(pageNum, pageSize, total, list));
+    }
+
+    @RequestMapping("/Likes")
+    public ResponseEntity<Integer> likeComment(@RequestParam long id) {
+        int result = comentsMapper.likeComment(id);
+        return ResponseEntity.ok(result);
+    }
+
+    @RequestMapping("deleteComments")//检查所传id的author是否与当前登录中的人相同
+    public ResponseEntity<Integer> deleteComment(@RequestParam long id) {
+        int result = comentsMapper.deleteById(id);
+        return ResponseEntity.ok(result);
+    }
+
+    @RequestMapping("/deleteCommentsByNews")
+    public ResponseEntity<Integer> deleteCommentsByNewsId(@RequestParam long news_id) {
+        int result = comentsMapper.deleteByNewsId(news_id);
+        return ResponseEntity.ok(result);
+    }
+
+    @RequestMapping("/resourseOfComments")
+    public ResponseEntity<String> resourseOfComments(@RequestParam long id){
+        String result = comentsMapper.findAuthorById(id);
+        return ResponseEntity.ok(result);
+    }
+
+    @RequestMapping("/deleteNews")//删除新闻的操作，检查删除新闻作者与当前登录账号是否一致(若非管理员)
+    public ResponseEntity<Integer> deleteNews(@RequestParam long id) {
+        int result = newsMapper.deleteById(id);
+        int res = comentsMapper.deleteByNewsId(id);
+        int totalDeleted = result + res;
+        if (result > 0) {
+            return ResponseEntity.ok(totalDeleted);
+        } else {
+            return ResponseEntity.status(500).body(0);
+        }
     }
 }
