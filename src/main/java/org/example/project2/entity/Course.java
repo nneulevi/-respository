@@ -5,21 +5,27 @@ import java.util.List;
 public class Course {
     private Long id;
     private String title;
-    private String videoUrl;
-    private String coverImage;
-    private Integer duration;
-    private User author;
-    private String content;
-    private List<courseCategory> categories;
-    public Course(Long id, String title, String videoUrl, String coverImage, Integer duration, User author, String content, List<courseCategory> categories) {
+    private String videoUrl;//视频路径
+    private String coverImage;//封面路径
+    private Integer duration;//持续时间
+    private String author;//作者
+    private String summary;//总结
+    private String content;//内容
+    private Integer likes;//点赞数
+    private List<courseCategory> categories;//分类
+    private Integer status;
+    public Course(Long id, String title, String videoUrl, String coverImage, Integer duration, String author, String summary,String content, Integer likes, List<courseCategory> categories,Integer status) {
         this.id = id;
         this.title = title;
         this.videoUrl = videoUrl;
         this.coverImage = coverImage;
         this.duration = duration;
         this.author = author;
+        this.summary = summary;
         this.content = content;
+        this.likes = likes;
         this.categories = categories;
+        this.status = status;
     }
 
     // Getter 和 Setter 方法
@@ -63,11 +69,11 @@ public class Course {
         this.duration = duration;
     }
 
-    public User getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 
@@ -87,4 +93,27 @@ public class Course {
         this.categories = categories;
     }
 
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public Integer getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Integer likes) {
+        this.likes = likes;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 }
