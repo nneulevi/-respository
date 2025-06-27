@@ -15,4 +15,5 @@ import java.util.Map;
 public class AIconfig {
     @Value("${spring.ai.openai.api-key}")
     private String openAiApiKey;
+
 }
