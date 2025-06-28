@@ -5,6 +5,7 @@ import org.example.project2.Mapper.UserMapper;
 import org.example.project2.Mapper.comentsMapper;
 import org.example.project2.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -68,8 +69,8 @@ public class NewsController {
             @RequestParam(required = false) String coverImage,
             @RequestParam(required = false) String author,
             @RequestParam(required = false) String tags,
-            @RequestParam(required = false) LocalDateTime startDate,
-            @RequestParam(required = false) LocalDateTime endDate
+            @RequestParam(required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+            @RequestParam(required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate
      ){
         PageResult<News> result = search(pageNum, pageSize, id, title, summary, content, coverImage, author, tags, startDate, endDate);
         return ResponseEntity.ok(result);
@@ -86,8 +87,8 @@ public class NewsController {
             @RequestParam(required = false) String coverImage,
             @RequestParam(required = false) String author,
             @RequestParam(required = false) String tags,
-            @RequestParam(required = false) LocalDateTime startDate,
-            @RequestParam(required = false) LocalDateTime endDate
+            @RequestParam(required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+            @RequestParam(required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate
     ){
         PageResult<News> result = searchByTime(pageNum, pageSize, id, title, summary, content, coverImage, author, tags, startDate, endDate);
         return ResponseEntity.ok(result);
@@ -104,8 +105,8 @@ public class NewsController {
             @RequestParam(required = false) String coverImage,
             @RequestParam(required = false) String author,
             @RequestParam(required = false) String tags,
-            @RequestParam(required = false) LocalDateTime startDate,
-            @RequestParam(required = false) LocalDateTime endDate
+            @RequestParam(required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+            @RequestParam(required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate
     ){
         PageResult<News> result = searchBycount(pageNum, pageSize, id, title, summary, content, coverImage, author, tags, startDate, endDate);
         return ResponseEntity.ok(result);

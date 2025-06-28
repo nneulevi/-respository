@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class UserController {
         );
     }
 
-    public PageResult<User_d> search(int pageNum, int pageSize, String username, String phone, String email, String gender, Date startDate, Date endDate){
+    public PageResult<User_d> search(int pageNum, int pageSize, String username, String phone, String email, String gender, LocalDate startDate, LocalDate endDate){
         int offset = (pageNum - 1) * pageSize;
         List<User_d> users = userMapper.findByKeyword(username, phone, email, gender, startDate, endDate, offset, pageSize);
         long total = userMapper.count(username,phone,email,gender,startDate,endDate);
@@ -74,8 +75,8 @@ public class UserController {
             @RequestParam(required = false) String phone,
             @RequestParam(required = false) String email,
             @RequestParam(required = false) String gender,
-            @RequestParam(required = false) Date startDate,
-            @RequestParam(required = false) Date endDate
+            @RequestParam(required = false) LocalDate startDate,
+            @RequestParam(required = false) LocalDate endDate
     ){
         PageResult<User_d> result = search(pageNum, pageSize, username, phone, email, gender, startDate, endDate);
         return ResponseEntity.ok(result);

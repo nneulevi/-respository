@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.*;
 import org.example.project2.entity.User;
 import org.example.project2.entity.User_d;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -51,8 +52,8 @@ public interface UserMapper {//由于List的原因，使用User_d与数据库匹
             @Param("phone") String phone,
             @Param("email") String email,
             @Param("gender") String gender,
-            @Param("startDate") Date startDate,
-            @Param("endDate") Date endDate,
+            @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate,
             @Param("offset") int offset,
             @Param("limit") int limit);
 
@@ -85,8 +86,8 @@ public interface UserMapper {//由于List的原因，使用User_d与数据库匹
                @Param("phone") String phone,
                @Param("email") String email,
                @Param("gender") String gender,
-               @Param("startDate") Date startDate,
-               @Param("endDate") Date endDate);
+               @Param("startDate") LocalDate startDate,
+               @Param("endDate") LocalDate endDate);
 
     //User个人主页待补充
 }
