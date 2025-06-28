@@ -122,8 +122,8 @@ public interface courseMapper {
     @Select("SELECT * FROM course WHERE id = #{id}")
     Course selectCourseById(@Param("id") Long id);
 
-    @Insert("INSERT INTO course (title, videoUrl, coverImage, duration, author, summary, content, likes) " +
-            "VALUES (#{title}, #{videoUrl}, #{coverImage}, #{duration}, #{author}, #{summary}, #{content}, #{likes})")
+    @Insert("INSERT INTO course (title, videoUrl, coverImage, duration, author, summary, content, likes,status) " +
+            "VALUES (#{title}, #{videoUrl}, #{coverImage}, #{duration}, #{author}, #{summary}, #{content}, #{likes}, #{status})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int insertCourse(Course course);
 
@@ -142,6 +142,9 @@ public interface courseMapper {
     @Update("update course SET status = 1 where id=#{id}")
     int updateStatus(@Param("id") long id);
 
+    @Update("update course set status = 2 where id=#{id}")
+    int refuseStatus(@Param("id") long id);
+
     @Insert("INSERT INTO course_category_mapping(courseId, categoryId) VALUES(#{courseId}, #{categoryId})")
     int insertCourseCategoryMapping(@Param("courseId") Long courseId, @Param("categoryId") Long categoryId);
 
@@ -150,4 +153,40 @@ public interface courseMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int insertToReady_course(Course course);
 
+    @Select({
+            "<script>",
+            "SELECT DISTINCT c.id, c.title, c.videoUrl, c.coverImage, c.duration, c.author, c.summary, c.content, c.likes",
+            "FROM course c",
+            "LEFT JOIN course_category_mapping m ON c.id = m.courseId",
+            "LEFT JOIN course_category cat ON m.categoryId = cat.id",
+            "<where>",
+            "  <if test='status != null'>AND c.status = #{status}</if>",
+            "  <if test='author != null and author != \"\"'>AND c.author = #{author}</if>",
+            "</where>",
+            "ORDER BY c.likes DESC",
+            "LIMIT #{size} OFFSET #{offset}",
+            "</script>"
+    })
+    List<Course> selectByStatusAndAuthor(@Param("status") Integer status,
+                                         @Param("author") String author,@Param("size") int size,
+                                         @Param("offset") int offset);
+
+    @Select({
+            "<script>",
+            "SELECT DISTINCT c.id, c.title, c.videoUrl, c.coverImage, c.duration, c.author, c.summary, c.content, c.likes",
+            "FROM course c",
+            "LEFT JOIN course_category_mapping m ON c.id = m.courseId",
+            "LEFT JOIN course_category cat ON m.categoryId = cat.id",
+            "<where>",
+            "  <if test='status != null'>AND c.status = #{status}</if>",
+            "  <if test='author != null and author != \"\"'>AND c.author = #{author}</if>",
+            "</where>",
+            "ORDER BY c.likes DESC",
+            "</script>"
+    })
+    long selectByStatusAndAuthorCount(@Param("status") Integer status,
+                                         @Param("author") String author);
+
+    @Select("select author from course where id=#{id}")
+    String getAuthor(@Param("id") long id);
 }

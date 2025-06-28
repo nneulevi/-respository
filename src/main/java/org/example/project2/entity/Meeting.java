@@ -11,11 +11,10 @@ public class Meeting {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private String content; // 富文本
-    private User creator;
-    private Integer status; // 0-草稿 1-待审核 2-已发布
-    private List<Agenda> agendas;
+    private String creator;
+    private Integer status; // 0-待审核 1-passed 2-rejected
 
-    public Meeting(Long id, String title, String coverImage, String address, LocalDateTime startTime, LocalDateTime endTime, String content, User creator, Integer status, List<Agenda> agendas) {
+    public Meeting(Long id, String title, String coverImage, String address, LocalDateTime startTime, LocalDateTime endTime, String content, String creator, Integer status) {
         this.id = id;
         this.title = title;
         this.coverImage = coverImage;
@@ -25,7 +24,6 @@ public class Meeting {
         this.content = content;
         this.creator = creator;
         this.status = status;
-        this.agendas = agendas;
     }
     public Long getId() {
         return id;
@@ -83,11 +81,11 @@ public class Meeting {
         this.content = content;
     }
 
-    public User getCreator() {
+    public String getCreator() {
         return creator;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(String creator) {
         this.creator = creator;
     }
 
@@ -97,14 +95,6 @@ public class Meeting {
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public List<Agenda> getAgendas() {
-        return agendas;
-    }
-
-    public void setAgendas(List<Agenda> agendas) {
-        this.agendas = agendas;
     }
 
 }

@@ -6,13 +6,15 @@ import java.time.LocalDateTime;
 //used for meeting
 public class Agenda {
     private Long id;
+    private long meeting_id;
     private String title;
     private String speaker;
     private LocalDateTime startTime;
     private Integer duration; // 分钟
     private String content;
-    public Agenda(Long id, String title, String speaker, LocalDateTime startTime, Integer duration, String content){
+    public Agenda(Long id, long meeting_id, String title, String speaker, LocalDateTime startTime, Integer duration, String content){
         this.id = id;
+        this.meeting_id = meeting_id;
         this.title = title;
         this.speaker = speaker;
         this.startTime = startTime;
@@ -66,5 +68,13 @@ public class Agenda {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public long getMeeting_id() {
+        return meeting_id;
+    }
+
+    public void setMeeting_id(long meeting_id) {
+        this.meeting_id = meeting_id;
     }
 }

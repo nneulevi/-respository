@@ -41,6 +41,17 @@ public class CourseService {
         return new PageResult<>(page,size,total,courses);
     }
 
+    public PageResult<Course> getCourseByAuthor(Integer status,String author,int page,int size){
+        int offset = (page - 1) * size;
+        List<Course> courses = courseMapper.selectByStatusAndAuthor(status,author,size,offset);
+        for (Course course : courses) {
+            List<courseCategory> categories = courseMapper.selectCategoriesByCourseId(course.getId());
+            course.setCategories(categories);
+        }
+        long total = courseMapper.selectByStatusAndAuthorCount(status,author);
+        return new PageResult<>(page,size,total,courses);
+    }
+
     public Course getCourseById(Long id) {
         Course course = courseMapper.selectCourseById(id);
         if (course != null) {
