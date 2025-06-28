@@ -6,6 +6,7 @@ import org.example.project2.Mapper.UserMapper;
 import org.example.project2.Mapper.enterpriseMapper;
 import org.example.project2.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -75,8 +76,8 @@ public class UserController {
             @RequestParam(required = false) String phone,
             @RequestParam(required = false) String email,
             @RequestParam(required = false) String gender,
-            @RequestParam(required = false) LocalDate startDate,
-            @RequestParam(required = false) LocalDate endDate
+            @RequestParam(required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate startDate,
+            @RequestParam(required = false)@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate endDate
     ){
         PageResult<User_d> result = search(pageNum, pageSize, username, phone, email, gender, startDate, endDate);
         return ResponseEntity.ok(result);
