@@ -136,7 +136,7 @@ public interface courseMapper {
     @Update("UPDATE course SET title=#{title}, videoUrl=#{videoUrl}, coverImage=#{coverImage}, duration=#{duration}, author=#{author}, summary=#{summary}, content=#{content} WHERE id=#{id}")
     int updateCourse(Course course);
 
-    @Update("update course set likes = like + 1 where id=#{id}")
+    @Update("update course set likes = likes + 1 where id=#{id}")
     int updateLikes(@Param("id") long id);
 
     @Update("update course SET status = 1 where id=#{id}")
