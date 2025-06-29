@@ -41,7 +41,7 @@ public interface agendaMapper {
     @Select("SELECT speaker FROM agenda WHERE id = #{id}")
     String findAuthorById(@Param("id") long id);
 
-    @Update("update agenda set title=#{title},speaker=#{speaker},startTime=#{startTime},duration=#{duration},content=#{content} where id=#{id}")
+    @Update("update agenda set title=#{agenda.title},speaker=#{agenda.speaker},startTime=#{agenda.startTime},duration=#{agenda.duration},content=#{agenda.content} where id=#{id}")
     int updateAgenda(@Param("id") long id,@Param("agenda") Agenda agenda);
 
 }
