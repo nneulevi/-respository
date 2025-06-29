@@ -24,7 +24,7 @@ public class CourseService {
             List<courseCategory> categories = courseMapper.selectCategoriesByCourseId(course.getId());
             course.setCategories(categories);
         }
-        long total = courseMapper.selectByFiltercount(title, duration, author, summary, content, categoryName);
+        Long total = courseMapper.selectByFiltercount(title, duration, author, summary, content, categoryName);
         return new PageResult<>(page,size,total,courses);
     }
 
@@ -37,7 +37,7 @@ public class CourseService {
             List<courseCategory> categories = courseMapper.selectCategoriesByCourseId(course.getId());
             course.setCategories(categories);
         }
-        long total = courseMapper.selectByFiltercount2(title, duration, author, summary, content, categoryName);
+        Long total = courseMapper.selectByFiltercount2(title, duration, author, summary, content, categoryName);
         return new PageResult<>(page,size,total,courses);
     }
 
@@ -48,7 +48,7 @@ public class CourseService {
             List<courseCategory> categories = courseMapper.selectCategoriesByCourseId(course.getId());
             course.setCategories(categories);
         }
-        long total = courseMapper.selectByStatusAndAuthorCount(status,author);
+        Long total = courseMapper.selectByStatusAndAuthorCount(status,author);
         return new PageResult<>(page,size,total,courses);
     }
 

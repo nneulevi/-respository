@@ -30,7 +30,7 @@ public interface agendaMapper {
             @Param("offset") int offset);
 
     @Select("SELECT COUNT(*) FROM agenda WHERE meeting_id = #{meeting_id}")
-    long countByMeetingsId(@Param("meeting_id") long meeting_id);
+    Long countByMeetingsId(@Param("meeting_id") long meeting_id);
 
     @Delete("DELETE FROM agenda WHERE id = #{id}")
     int deleteById(@Param("id") long id);

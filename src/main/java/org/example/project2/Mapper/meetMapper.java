@@ -78,7 +78,7 @@ public interface meetMapper {
             "ORDER BY startTime DESC",
             "</script>"
     })
-    long findMeetingsByKeywordCount(
+    Long findMeetingsByKeywordCount(
             @Param("id") Long id,
             @Param("title") String title,
             @Param("content") String content,
@@ -157,7 +157,7 @@ public interface meetMapper {
             "ORDER BY startTime DESC",
             "</script>"
     })
-    long findMeetingsNotPassedCount(
+    Long findMeetingsNotPassedCount(
             @Param("id") Long id,
             @Param("title") String title,
             @Param("content") String content,
@@ -218,7 +218,7 @@ public interface meetMapper {
             "ORDER BY startTime DESC",
             "</script>"
     })
-    long selectByStatusAndAuthorCount(@Param("status") Integer status,
+    Long selectByStatusAndAuthorCount(@Param("status") Integer status,
                                           @Param("creator") String creator);
 
     @Select("select creator from meeting where id=#{id}")

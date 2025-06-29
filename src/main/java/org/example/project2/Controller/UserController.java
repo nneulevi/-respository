@@ -67,7 +67,7 @@ public class UserController {
     public PageResult<User_d> search(int pageNum, int pageSize, String username, String phone, String email, String gender, LocalDate startDate, LocalDate endDate){
         int offset = (pageNum - 1) * pageSize;
         List<User_d> users = userMapper.findByKeyword(username, phone, email, gender, startDate, endDate, offset, pageSize);
-        long total = userMapper.count(username,phone,email,gender,startDate,endDate);
+        Long total = userMapper.count(username,phone,email,gender,startDate,endDate);
         return new PageResult<>(pageNum, pageSize, total, users);
     }
 

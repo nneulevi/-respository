@@ -54,7 +54,7 @@ public interface courseMapper {
             "ORDER BY c.likes DESC",
             "</script>"
     })
-    long selectByFiltercount(@Param("title") String title,
+    Long selectByFiltercount(@Param("title") String title,
                              @Param("duration") Integer duration,
                              @Param("author") String author,
                              @Param("summary") String summary,
@@ -107,7 +107,7 @@ public interface courseMapper {
             "ORDER BY c.likes DESC",
             "</script>"
     })
-    long selectByFiltercount2(@Param("title") String title,
+    Long selectByFiltercount2(@Param("title") String title,
                              @Param("duration") Integer duration,
                              @Param("author") String author,
                              @Param("summary") String summary,
@@ -184,7 +184,7 @@ public interface courseMapper {
             "ORDER BY c.likes DESC",
             "</script>"
     })
-    long selectByStatusAndAuthorCount(@Param("status") Integer status,
+    Long selectByStatusAndAuthorCount(@Param("status") Integer status,
                                          @Param("author") String author);
 
     @Select("select author from course where id=#{id}")

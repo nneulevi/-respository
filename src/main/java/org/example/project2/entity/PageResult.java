@@ -5,10 +5,10 @@ import java.util.List;
 public class PageResult<T> {
     private int pageNum;
     private int pageSize;
-    private long total;
+    private Long total;
     private List<T> list;
 
-    public PageResult(int pageNum, int pageSize, long total, List<T> list) {
+    public PageResult(int pageNum, int pageSize, Long total, List<T> list) {
         this.pageNum = pageNum;
         this.pageSize = pageSize;
         this.total = total;
@@ -31,11 +31,11 @@ public class PageResult<T> {
         this.pageSize = pageSize;
     }
 
-    public long getTotal() {
+    public Long getTotal() {
         return total;
     }
 
-    public void setTotal(long total) {
+    public void setTotal(Long total) {
         this.total = total;
     }
 

@@ -30,7 +30,7 @@ public interface comentsMapper {
     );
 
     @Select("SELECT COUNT(*) FROM coments WHERE news_id = #{news_id}")
-    long countByNewsId(@Param("news_id") long news_id);
+    Long countByNewsId(@Param("news_id") long news_id);
 
     // 删除指定评论
     @Delete("DELETE FROM coments WHERE id = #{id}")

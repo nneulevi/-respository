@@ -37,7 +37,7 @@ public interface NewsMapper {
                          @Param("limit") int limit);
 
     @Select("select COUNT(*) from ready_news")
-    long count2();
+    Long count2();
 
     @Update("update news set id=#{id},title=#{title},summary=#{summary},content=#{content},coverImage=#{coverImage},author=#{author},tags=#{tags} where id=#{old_id}")
     int modify(News news,@Param("old_id") Long old_id);

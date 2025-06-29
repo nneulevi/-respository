@@ -21,7 +21,7 @@ public class meetingService {
     public PageResult<Meeting> getPassedMeetingsByStartTime(long id, String title, String content, String creator, LocalDateTime startTime,LocalDateTime endTime, int page, int size) {
         int offset = (page - 1) * size;
         List<Meeting> meets = meetMapper.findMeetingsByKeyword(id, title, content,creator, startTime, endTime, offset, size);
-        long total = meetMapper.findMeetingsByKeywordCount(id, title, content, creator, startTime, endTime);
+        Long total = meetMapper.findMeetingsByKeywordCount(id, title, content, creator, startTime, endTime);
         meets.sort((a,b)->b.getStartTime().compareTo(a.getStartTime()));
         return new PageResult<>(page, size, total, meets);
     }
@@ -29,7 +29,7 @@ public class meetingService {
     public PageResult<Meeting> getNotPassedMeeting(long id, String title, String content, String creator, LocalDateTime startTime,LocalDateTime endTime, int page, int size){
         int offset = (page - 1) * size;
         List<Meeting> meets = meetMapper.findMeetingsNotPassed(id, title, content,creator, startTime, endTime, offset, size);
-        long total = meetMapper.findMeetingsNotPassedCount(id, title, content, creator, startTime, endTime);
+        Long total = meetMapper.findMeetingsNotPassedCount(id, title, content, creator, startTime, endTime);
         meets.sort((a,b)->b.getStartTime().compareTo(a.getStartTime()));
         return new PageResult<>(page, size, total, meets);
     }
@@ -37,21 +37,21 @@ public class meetingService {
     public PageResult<Meeting> getPersonalMeeting(Integer status,String creator,int page, int size) {
         int offset = (page - 1) * size;
         List<Meeting> meets = meetMapper.selectByStatusAndAuthor(status, creator, offset, size);
-        long total = meetMapper.selectByStatusAndAuthorCount(status, creator);
+        Long total = meetMapper.selectByStatusAndAuthorCount(status, creator);
         return new PageResult<>(page, size, total, meets);
     }
 
     public PageResult<Agenda> getSubAgendaByTime(long meeting_id,int page,int size){
         int offset = (page - 1) * size;
         List<Agenda> agenda = agendaMapper.findBystartTime(meeting_id, offset, size);
-        long total = agendaMapper.countByMeetingsId(meeting_id);
+        Long total = agendaMapper.countByMeetingsId(meeting_id);
         return new PageResult<>(page,size,total,agenda);
     }
 
     public PageResult<Agenda> getSubAgendaByDuration(long meeting_id,int page,int size){
         int offset = (page - 1) * size;
         List<Agenda> agenda = agendaMapper.findByDuration(meeting_id, offset, size);
-        long total = agendaMapper.countByMeetingsId(meeting_id);
+        Long total = agendaMapper.countByMeetingsId(meeting_id);
         return new PageResult<>(page,size,total,agenda);
     }
 

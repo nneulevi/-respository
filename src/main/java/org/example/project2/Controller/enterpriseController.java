@@ -27,7 +27,7 @@ public class enterpriseController {
         int offset = (pageNum - 1) * pageSize;
 
         List<Enterprise> enterprises = enterpriseMapper.getAllEnterprise(id,name,phone,licenseNumber,contactPerson,contactPhone,offset, pageSize);
-        long total = enterpriseMapper.count(id,name,phone,licenseNumber,contactPerson,contactPhone);
+        Long total = enterpriseMapper.count(id,name,phone,licenseNumber,contactPerson,contactPhone);
 
         return new PageResult<>(pageNum, pageSize, total, enterprises);
     }

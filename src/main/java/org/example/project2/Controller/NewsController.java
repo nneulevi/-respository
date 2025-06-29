@@ -123,7 +123,7 @@ public class NewsController {
                                                            @RequestParam(defaultValue = "10") int pageSize){
         int offset = (pageNum - 1) * pageSize;
         List<News> news = newsMapper.selectAll(offset, pageSize);
-        long total = newsMapper.count2();
+        Long total = newsMapper.count2();
         return ResponseEntity.ok(new PageResult<>(pageNum,pageSize,total,news));
     }
 
@@ -189,7 +189,7 @@ public class NewsController {
             @RequestParam(defaultValue = "10") int pageSize) {
         int offset = (pageNum - 1) * pageSize;
         List<coments> list = comentsMapper.findByNewsIdOrderByTime(news_id, pageSize, offset);
-        long total = comentsMapper.countByNewsId(news_id);
+        Long total = comentsMapper.countByNewsId(news_id);
         return ResponseEntity.ok(new PageResult<>(pageNum, pageSize, total, list));
     }
 
@@ -200,7 +200,7 @@ public class NewsController {
             @RequestParam(defaultValue = "10") int pageSize) {
         int offset = (pageNum - 1) * pageSize;
         List<coments> list = comentsMapper.findByNewsIdOrderByLikes(news_id, pageSize, offset);
-        long total = comentsMapper.countByNewsId(news_id);
+        Long total = comentsMapper.countByNewsId(news_id);
         return ResponseEntity.ok(new PageResult<>(pageNum, pageSize, total, list));
     }
 
