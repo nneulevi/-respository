@@ -23,7 +23,7 @@ public class NewsController {
     UserMapper userMapper;
     @Autowired
     comentsMapper comentsMapper;
-    @RequestMapping("/submit")//基于普通用户，插到ready_news中
+    @RequestMapping("/submit")//基于普通用户，插到ready_news中，传news的所有属性，下同
     public ResponseEntity<Integer> Add(@RequestBody News news){
         int result = newsMapper.submit(news);
         return ResponseEntity.status(result > 0 ? 200 : 500).body(result);
@@ -58,7 +58,7 @@ public class NewsController {
         return new PageResult<>(pageNum,pageSize,total,news);
     }
 
-    @RequestMapping("/getNews")
+    @RequestMapping("/getNews")//同样模糊查询
     public ResponseEntity<PageResult<News>> get(
             @RequestParam(defaultValue = "1") int pageNum,
             @RequestParam(defaultValue = "10") int pageSize,
@@ -76,7 +76,7 @@ public class NewsController {
         return ResponseEntity.ok(result);
     }
 
-    @RequestMapping("/get_by_time")//支持按时间排序
+    @RequestMapping("/get_by_time")//支持按时间排序，模糊查询，注意参数顺序
     public ResponseEntity<PageResult<News>> get_by_time(
             @RequestParam(defaultValue = "1") int pageNum,
             @RequestParam(defaultValue = "10") int pageSize,
@@ -112,13 +112,13 @@ public class NewsController {
         return ResponseEntity.ok(result);
     }
 
-    @RequestMapping("/get_newsdetail")//点击标题后展示具体内容，新增评论,加载时获得基础用户信息，随后调用coments相关接口加载评论
+    @RequestMapping("/get_newsdetail")//点击标题后展示具体内容，参数为新闻标题，新增评论,加载时获得基础用户信息，随后调用coments相关接口加载评论
     public ResponseEntity<News> getDetail(@RequestParam(required = false) String title){
         News news = newsMapper.selectBytitle(title);
         return ResponseEntity.ok(news);
     }
 
-    @RequestMapping("/check")//管理员审核界面
+    @RequestMapping("/check")//管理员审核界面，传分页属性
     public ResponseEntity<PageResult<News>> ready_to_check(@RequestParam(defaultValue = "1") int pageNum,
                                                            @RequestParam(defaultValue = "10") int pageSize){
         int offset = (pageNum - 1) * pageSize;
@@ -127,7 +127,7 @@ public class NewsController {
         return ResponseEntity.ok(new PageResult<>(pageNum,pageSize,total,news));
     }
 
-    @RequestMapping("/modify_view")
+    @RequestMapping("/modify_view")//使用get_newsdetail后随即使用，增加点击量
     public ResponseEntity<Integer> modify(@RequestParam(required = false) String title){
         News news = newsMapper.selectBytitle(title);
         int view = news.getViewCount();
@@ -182,7 +182,7 @@ public class NewsController {
         return ResponseEntity.status(result > 0 ? 200 : 500).body(result);
     }
 
-    @RequestMapping("/getCommentsByTime")
+    @RequestMapping("/getCommentsByTime")//传所属新闻id，分页属性
     public ResponseEntity<PageResult<coments>> getCommentsByTime(
             @RequestParam(required = false) long news_id,
             @RequestParam(defaultValue = "1") int pageNum,
@@ -193,7 +193,7 @@ public class NewsController {
         return ResponseEntity.ok(new PageResult<>(pageNum, pageSize, total, list));
     }
 
-    @RequestMapping("/getCommentsByLikes")//可以默认调用Likes
+    @RequestMapping("/getCommentsByLikes")//可以默认调用Likes，所属新闻id
     public ResponseEntity<PageResult<coments>> getCommentsByLikes(
             @RequestParam long news_id,
             @RequestParam(defaultValue = "1") int pageNum,
@@ -204,7 +204,7 @@ public class NewsController {
         return ResponseEntity.ok(new PageResult<>(pageNum, pageSize, total, list));
     }
 
-    @RequestMapping("/Likes")
+    @RequestMapping("/Likes")//传评论的id
     public ResponseEntity<Integer> likeComment(@RequestParam long id) {
         int result = comentsMapper.likeComment(id);
         return ResponseEntity.ok(result);

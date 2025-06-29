@@ -40,7 +40,7 @@ public class meetingController {
     AIService AiService;
 
     //用户提交
-    @RequestMapping("/addAgenda")
+    @RequestMapping("/addAgenda")//传子议程的所有属性，必有所属meeting的id
     public ResponseEntity<Integer> submit(@RequestBody Agenda agenda) {
         int result = agendaMapper.insert(agenda);
         return ResponseEntity.status(result > 0 ? 200 : 500).body(result);
@@ -61,19 +61,19 @@ public class meetingController {
         return ResponseEntity.ok(meetService.getAgenda(id));
     }
 
-    @RequestMapping("/updateAgendaInfo")
+    @RequestMapping("/updateAgendaInfo")//传Agenda的所有属性，判断当前用户和创作者是否相同
     public ResponseEntity<Integer> update(@RequestBody Agenda agenda){
         int result = agendaMapper.updateAgenda(agenda.getId(),agenda);
         return ResponseEntity.status(result > 0 ? 200 : 500).body(result);
     }
 
-    @RequestMapping("/deleteAgenda")
+    @RequestMapping("/deleteAgenda")//传子议程的id
     public ResponseEntity<Integer> delete(@RequestParam long id){
         int result = agendaMapper.deleteById(id);
         return ResponseEntity.status(result > 0 ? 200 : 500).body(result);
     }
 
-    @RequestMapping("/getPassedMeetings")//已通过的会议，均可见
+    @RequestMapping("/getPassedMeetings")//已通过的会议，均可见，模糊查询，注意顺序
     public ResponseEntity<PageResult<Meeting>> getPassedMeetings(
             @RequestParam(required = false) Long id,
             @RequestParam(required = false) String title,
@@ -113,7 +113,7 @@ public class meetingController {
         return ResponseEntity.ok(result);
     }
 
-    @RequestMapping("/getCertainStatusMeetings")//查找某用户创建的会议
+    @RequestMapping("/getCertainStatusMeetings")//查找某用户创建的会议，传状态，创作者，分页属性
     public ResponseEntity<PageResult<Meeting>> getPersonalMeetings(
             @RequestParam(required = false) Integer status,
             @RequestParam(required = false) String creator,
@@ -124,7 +124,7 @@ public class meetingController {
         return ResponseEntity.ok(result);
     }
 
-    @RequestMapping("/getMeetingDetail")//获取会议信息，
+    @RequestMapping("/getMeetingDetail")//获取会议信息，传meeting的id
     public ResponseEntity<Meeting> getMeeting(@RequestParam long id){
         return ResponseEntity.ok(meetMapper.findById(id));
     }

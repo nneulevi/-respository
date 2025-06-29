@@ -15,7 +15,7 @@ public class enterpriseController {
     @Autowired
     enterpriseMapper enterpriseMapper;
 
-    @RequestMapping("/Register")
+    @RequestMapping("/Register")//传所有公司的属性
     public ResponseEntity<Integer> Add(@RequestBody Enterprise enterprise) {
         enterprise.setAudiStatus(1);//参数按enterprise的属性传，audisstatus的位置设置为0即可
         int result = enterpriseMapper.insert(enterprise);
@@ -32,7 +32,7 @@ public class enterpriseController {
         return new PageResult<>(pageNum, pageSize, total, enterprises);
     }
 
-    @RequestMapping("/Enterprises")
+    @RequestMapping("/Enterprises")//查找公司的分页与模糊查询，注意参数顺序
     //@Cacheable(value = "contests", keyGenerator = "submissionKeyGenerator")
     public ResponseEntity<PageResult<Enterprise>> get(
             @RequestParam(defaultValue = "1") int pageNum,

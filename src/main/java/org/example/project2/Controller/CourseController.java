@@ -111,13 +111,13 @@ public class CourseController {
         return ResponseEntity.ok(ans);
     }
 
-    @RequestMapping("/updateLikes")//基础的点赞功能
+    @RequestMapping("/updateLikes")//基础的点赞功能，传课程id
     public ResponseEntity<Integer> updateLikes(@RequestParam(required = false) long id){
         int ans = courseMapper.updateLikes(id);
         return ResponseEntity.ok(ans);
     }
 
-    @RequestMapping("/refuseCourse")//管理员或用户删除课程使用
+    @RequestMapping("/refuseCourse")//管理员或用户删除课程使用，传所要删除的id
     public ResponseEntity<Integer> refuse(@RequestParam(required = false) long id){
         int result = courseService.deleteCourse(id);
         return ResponseEntity.status(result > 0 ? 200 : 500).body(result);

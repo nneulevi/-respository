@@ -25,7 +25,7 @@ public class UserController {
     @Autowired
     enterpriseMapper enterpriseMapper;
 
-    @RequestMapping("/login")
+    @RequestMapping("/login")//需要用到的是是否是管理员的状态，用户名和密码
     public boolean check(@RequestBody User_d user){
         if(user.getStatus()==0){
             Enterprise enterprise1 = enterpriseMapper.findByid(user.getEnterprise());
@@ -40,10 +40,13 @@ public class UserController {
     @RequestMapping("/adduser")//传User_d的九个属性
     public ResponseEntity<Integer> Add(@RequestBody User_d user){
         int result = userMapper.insert(user);
+        if(user.getEnterprise() == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(-1);
+        Enterprise en = enterpriseMapper.findByid(user.getEnterprise());
+        if(en == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(-1);
         return ResponseEntity.status(result > 0 ? 200 : 500).body(result);
     }
 
-    @RequestMapping("/getUserinfo")
+    @RequestMapping("/getUserinfo")//传入user的用户名获取全部信息
     public User get(@Param("username") String username){
         User_d user = userMapper.findByUsername(username);
         List<News> list = newsMapper.selectByauthor(username);
@@ -68,7 +71,7 @@ public class UserController {
         return new PageResult<>(pageNum, pageSize, total, users);
     }
 
-    @RequestMapping("/getUserlist")
+    @RequestMapping("/getUserlist")//入参为模糊查询项和分页项，分页项必传，其他选传
     public ResponseEntity<PageResult<User_d>> get(
             @RequestParam(defaultValue = "1") int pageNum,
             @RequestParam(defaultValue = "10") int pageSize,
