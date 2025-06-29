@@ -22,13 +22,13 @@ import org.springframework.web.bind.annotation.*;
 public class CourseController {
 
     @Autowired
-    courseMapper courseMapper;
+    public courseMapper courseMapper;
     @Autowired
-    CourseService courseService;
+    public CourseService courseService;
     @Autowired
     private ChatModel chatModel;
     @Autowired
-    UserMapper userMapper;
+    public UserMapper userMapper;
     @RequestMapping("/getCoursesByFilter")//展示所有已经通过审核的课程
     public ResponseEntity<PageResult<Course>> getCourses(@RequestParam(required = false) String title,
                                                          @RequestParam(required = false) Integer duration,

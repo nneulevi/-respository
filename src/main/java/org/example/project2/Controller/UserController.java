@@ -39,10 +39,10 @@ public class UserController {
 
     @RequestMapping("/adduser")//传User_d的九个属性
     public ResponseEntity<Integer> Add(@RequestBody User_d user){
-        int result = userMapper.insert(user);
         if(user.getEnterprise() == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(-1);
         Enterprise en = enterpriseMapper.findByid(user.getEnterprise());
         if(en == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(-1);
+        int result = userMapper.insert(user);
         return ResponseEntity.status(result > 0 ? 200 : 500).body(result);
     }
 
