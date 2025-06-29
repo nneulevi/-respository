@@ -63,7 +63,14 @@ public class meetingController {
 
     @RequestMapping("/updateAgendaInfo")//传Agenda的所有属性，判断当前用户和创作者是否相同
     public ResponseEntity<Integer> update(@RequestBody Agenda agenda){
-        int result = agendaMapper.updateAgenda(agenda.getId(),agenda);
+        Agenda old = agendaMapper.findById(agenda.getId());
+        if(old == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(-1);
+        if(agenda.getTitle()!=null) old.setTitle(agenda.getTitle());
+        if(agenda.getSpeaker()!=null) old.setSpeaker(agenda.getSpeaker());
+        if(agenda.getStartTime()!=null) old.setStartTime(agenda.getStartTime());
+        if(agenda.getDuration()!=null) old.setDuration(agenda.getDuration());
+        if(agenda.getContent()!=null) old.setContent(agenda.getContent());
+        int result = agendaMapper.updateAgenda(agenda.getId(),old);
         return ResponseEntity.status(result > 0 ? 200 : 500).body(result);
     }
 
