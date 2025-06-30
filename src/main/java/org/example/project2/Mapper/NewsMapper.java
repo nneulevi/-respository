@@ -74,7 +74,7 @@ public interface NewsMapper {
             "    AND publishTime BETWEEN #{startDate} AND #{endDate}",
             "  </if>",
             "</where>",
-            "ORDER BY publish_time DESC",
+            "ORDER BY publishTime DESC",
             "LIMIT #{limit} OFFSET #{offset}",
             "</script>"
     })
@@ -121,7 +121,7 @@ public interface NewsMapper {
             "    AND publishTime BETWEEN #{startDate} AND #{endDate}",
             "  </if>",
             "</where>",
-            "ORDER BY publish_time DESC",
+            "ORDER BY publishTime DESC",
             "</script>"
     })
     Long count(
