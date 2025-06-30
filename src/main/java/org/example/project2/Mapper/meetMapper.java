@@ -205,7 +205,7 @@ public interface meetMapper {
             "</script>"
     })
     List<Meeting> selectByStatusAndAuthor(@Param("status") Integer status,
-                                          @Param("creator") String creator,@Param("size") int size,
+                                          @Param("creator") String creator,@Param("limit") int limit,
                                           @Param("offset") int offset);
 
     @Select({

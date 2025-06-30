@@ -231,7 +231,7 @@ public class meetingControllerTest {
         verify(meetMapper).insert(argThat(m -> m.getStatus() == 0));
     }
     
-    /*@Test
+    @Test
     void testAsk_AISummary() {
         // 模拟AI服务返回
         when(aiService.chat("测试问题")).thenReturn("AI回答");
@@ -243,5 +243,5 @@ public class meetingControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("AI回答", response.getBody());
         verify(aiService).chat("测试问题");
-    }*/
+    }
 } 

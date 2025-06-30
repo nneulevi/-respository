@@ -36,21 +36,21 @@ public class meetingService {
 
     public PageResult<Meeting> getPersonalMeeting(Integer status,String creator,int page, int size) {
         int offset = (page - 1) * size;
-        List<Meeting> meets = meetMapper.selectByStatusAndAuthor(status, creator, offset, size);
+        List<Meeting> meets = meetMapper.selectByStatusAndAuthor(status, creator, size,offset);
         Long total = meetMapper.selectByStatusAndAuthorCount(status, creator);
         return new PageResult<>(page, size, total, meets);
     }
 
     public PageResult<Agenda> getSubAgendaByTime(long meeting_id,int page,int size){
         int offset = (page - 1) * size;
-        List<Agenda> agenda = agendaMapper.findBystartTime(meeting_id, offset, size);
+        List<Agenda> agenda = agendaMapper.findBystartTime(meeting_id, size, offset);
         Long total = agendaMapper.countByMeetingsId(meeting_id);
         return new PageResult<>(page,size,total,agenda);
     }
 
     public PageResult<Agenda> getSubAgendaByDuration(long meeting_id,int page,int size){
         int offset = (page - 1) * size;
-        List<Agenda> agenda = agendaMapper.findByDuration(meeting_id, offset, size);
+        List<Agenda> agenda = agendaMapper.findByDuration(meeting_id, size,offset);
         Long total = agendaMapper.countByMeetingsId(meeting_id);
         return new PageResult<>(page,size,total,agenda);
     }

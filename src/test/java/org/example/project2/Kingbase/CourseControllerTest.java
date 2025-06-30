@@ -11,8 +11,11 @@ import org.example.project2.entity.courseCategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.chat.model.Generation;
+import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.mockito.ArgumentCaptor;
@@ -58,7 +61,7 @@ public class CourseControllerTest {
     @Test
     void testGetCourses() {
         when(courseService.getCourses(any(), any(), any(), any(), any(), any(), anyInt(), anyInt()))
-                .thenReturn(new PageResult<>(1, 10, 0, Collections.emptyList()));
+                .thenReturn(new PageResult<>(1, 10, 0L, Collections.emptyList()));
 
         ResponseEntity<PageResult<Course>> response = controller.getCourses(null, null, null, null, null, null, 1, 10);
         assertEquals(200, response.getStatusCodeValue());
@@ -67,7 +70,7 @@ public class CourseControllerTest {
     @Test
     void testGetCoursesReady() {
         when(courseService.getCoursesReady(any(), any(), any(), any(), any(), any(), anyInt(), anyInt()))
-                .thenReturn(new PageResult<>(1, 10, 0, Collections.emptyList()));
+                .thenReturn(new PageResult<>(1, 10, 0L, Collections.emptyList()));
 
         ResponseEntity<PageResult<Course>> response = controller.getCoursesReady(null, null, null, null, null, null, 1, 10);
         assertEquals(200, response.getStatusCodeValue());
@@ -76,7 +79,7 @@ public class CourseControllerTest {
     @Test
     void testGetCoursesPersonal() {
         when(courseService.getCourseByAuthor(any(), any(), anyInt(), anyInt()))
-                .thenReturn(new PageResult<>(1, 10, 0, Collections.emptyList()));
+                .thenReturn(new PageResult<>(1, 10, 0L, Collections.emptyList()));
 
         ResponseEntity<PageResult<Course>> response = controller.getCoursesPersonal(1, "user", 1, 10);
         assertEquals(200, response.getStatusCodeValue());
@@ -291,18 +294,21 @@ public class CourseControllerTest {
         assertEquals(500, response.getStatusCodeValue());
     }
 
-    /*@Test
+
+    @Test
     void testAsk() {
         ChatResponse mockResponse = mock(ChatResponse.class);
-        when(chatModel.call(any())).thenReturn(mockResponse);
+        Generation mockGeneration = mock(Generation.class);
+        AssistantMessage mockAssistantMessage = mock(AssistantMessage.class);
 
-        // 简化模拟返回内容
-        when(mockResponse.getResult()).thenReturn(mock(Object.class));
-        when(mockResponse.getResult().toString()).thenReturn("Test Answer");
+        when(chatModel.call(any(Prompt.class))).thenReturn(mockResponse);
+        when(mockResponse.getResult()).thenReturn(mockGeneration);
+        when(mockGeneration.getOutput()).thenReturn(mockAssistantMessage);
+        when(mockAssistantMessage.getText()).thenReturn("Test Answer");
 
         String result = controller.ask("Test Question");
-        assertNotNull(result);
-    }*/
+        assertEquals("Test Answer", result);
+    }
 
     @Test
     void testSubmit_VerifyStatusAndLikesSet() {
