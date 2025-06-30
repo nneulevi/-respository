@@ -13,7 +13,7 @@ public interface enterpriseMapper {
     //传参时直接把audisStatus设为1即可,公司的注册部分
     @Insert("""
         INSERT INTO enterprise(id, name, licenseNumber, contactPerson, contactPhone, audiStatus)
-        VALUES (#{id}, #{name}, #{licenseNumber}, #{contactPerson}, #{contactPhone}, #{audisStatus})
+        VALUES (#{id}, #{name}, #{licenseNumber}, #{contactPerson}, #{contactPhone}, #{audiStatus})
     """)
     int insert(Enterprise enterprise);
 
