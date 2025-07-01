@@ -144,7 +144,7 @@ public class NewsController {
             @RequestBody News news) {
 
         // 获取当前登录用户
-        User_d now = userMapper.findByUsername(now_username);
+        User_d now = userMapper.findByUsername(now_username); 
         if (now == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(-3); // 用户不存在或未登录
         }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -24,6 +25,8 @@ public class UserController {
     NewsMapper newsMapper;
     @Autowired
     enterpriseMapper enterpriseMapper;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @RequestMapping("/login")//需要用到的是是否是管理员的状态，用户名和密码
     public boolean check(@RequestBody User_d user){
@@ -32,9 +35,9 @@ public class UserController {
             if(enterprise1==null) return false;
             if(enterprise1.getAudiStatus()==0) return false;
         }
-        User_d u=userMapper.findByUsernameAndPassword(user.getUsername(), user.getPassword());
-        if(u==null) return false;
-        return true;
+        User_d u = userMapper.findByUsername(user.getUsername());
+        if(u == null) return false;
+        return passwordEncoder.matches(user.getPassword(),u.getPassword());
     }
 
     @RequestMapping("/adduser")//传User_d的九个属性
@@ -42,6 +45,8 @@ public class UserController {
         if(user.getEnterprise() == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(-1);
         Enterprise en = enterpriseMapper.findByid(user.getEnterprise());
         if(en == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(-1);
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         int result = userMapper.insert(user);
         return ResponseEntity.status(result > 0 ? 200 : 500).body(result);
     }
