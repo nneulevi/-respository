@@ -159,11 +159,12 @@ public class meetingController {
         return ResponseEntity.status(result > 0 ? 200 : 500).body(result);
     }
 
-    @RequestMapping("/updateMeeting")//要修改的会议，当前登录用户的用户名
+    @RequestMapping("/updateMeeting")//要修改的会议，当前登录用户的用户名,确保meeting已经存在
     public ResponseEntity<Integer> update(@RequestBody Meeting meeting,@RequestParam(required = false) String now_username){
         Meeting old = meetMapper.findById(meeting.getId());
+        if(old == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(-1);
         User_d user_d = userMapper.findByUsername(now_username);
-        int status = user_d.getStatus();
+        int status = user_d == null ? 1 : user_d.getStatus();
         if(status == 0 && !old.getCreator().equals(now_username)) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(-1);
         if (meeting.getTitle() != null) old.setTitle(meeting.getTitle());
         if (meeting.getCoverImage() != null) old.setCoverImage(meeting.getCoverImage());
@@ -179,7 +180,8 @@ public class meetingController {
     @RequestMapping("/addMeeting")//增加的会议信息，当前用户，同步调用addAgenda以同时增加会议的子议程
     public ResponseEntity<Integer> addMeeting(@RequestBody Meeting meeting,@RequestParam(required = false) String now_username){
         User_d user_d = userMapper.findByUsername(now_username);
-        meeting.setStatus(user_d.getStatus());
+        if(user_d == null) meeting.setStatus(1);
+        else meeting.setStatus(user_d.getStatus());
         int result = meetMapper.insert(meeting);
         return ResponseEntity.ok(result);
     }

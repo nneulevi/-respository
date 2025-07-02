@@ -12,9 +12,7 @@ public interface meetMapper {
             "<script>",
             "SELECT * FROM meeting",
             "<where>",
-            "  <if test='status != null'>",
-            "    AND status = 1",
-            "  </if>",
+            "  status = 1",
             "  <if test='id != null'>",
             "    AND id = #{id}",
             "  </if>",
@@ -53,9 +51,7 @@ public interface meetMapper {
             "<script>",
             "SELECT COUNT(*) FROM meeting",
             "<where>",
-            "  <if test='status != null'>",
-            "    AND status = 1",
-            "  </if>",
+            "  status = 1",
             "  <if test='id != null'>",
             "    AND id = #{id}",
             "  </if>",
@@ -91,9 +87,7 @@ public interface meetMapper {
             "<script>",
             "SELECT * FROM meeting",
             "<where>",
-            "  <if test='status != null'>",
-            "    AND status = 0",
-            "  </if>",
+            "  status = 0",
             "  <if test='id != null'>",
             "    AND id = #{id}",
             "  </if>",
@@ -132,9 +126,7 @@ public interface meetMapper {
             "<script>",
             "SELECT COUNT(*) FROM meeting",
             "<where>",
-            "  <if test='status != null'>",
-            "    AND status = 0",
-            "  </if>",
+            "  status = 0",
             "  <if test='id != null'>",
             "    AND id = #{id}",
             "  </if>",
@@ -171,7 +163,7 @@ public interface meetMapper {
 
     @Insert("insert into meeting(title, coverImage, address, startTime, endTime, content, creator,status)" +
             "values (#{title},#{coverImage},#{address},#{startTime},#{endTime},#{content},#{creator},#{status})")
-    int insert(@Param("meeting") Meeting meeting);
+    int insert(Meeting meeting);
 
     @Update({
             "<script>",
