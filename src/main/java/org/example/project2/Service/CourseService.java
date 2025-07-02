@@ -45,6 +45,7 @@ public class CourseService {
         int offset = (page - 1) * size;
         List<Course> courses = courseMapper.selectByStatusAndAuthor(status,author,size,offset);
         for (Course course : courses) {
+            System.out.println(course.getStatus());
             List<courseCategory> categories = courseMapper.selectCategoriesByCourseId(course.getId());
             course.setCategories(categories);
         }

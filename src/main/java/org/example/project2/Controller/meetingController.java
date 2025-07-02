@@ -96,7 +96,7 @@ public class meetingController {
         }
 
         PageResult<Meeting> result = meetService.getPassedMeetingsByStartTime(
-                id != null ? id : 0L, title, content, creator, startTime, endTime, page, size);
+                id, title, content, creator, startTime, endTime, page, size);
         return ResponseEntity.ok(result);
     }
 
@@ -116,7 +116,7 @@ public class meetingController {
         }
 
         PageResult<Meeting> result = meetService.getNotPassedMeeting(
-                id != null ? id : 0L, title, content, creator, startTime, endTime, page, size);
+                id, title, content, creator, startTime, endTime, page, size);
         return ResponseEntity.ok(result);
     }
 
