@@ -98,7 +98,7 @@ public class CourseController {
         if(old == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(-1);
         String now = courseMapper.getAuthor(course.getId());
         User_d user_d = userMapper.findByUsername(now_username);
-        int status = user_d.getStatus();
+        int status = user_d == null ? 1 : user_d.getStatus();
         if(status == 0 && !now.equals(now_username)) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(-1);
         if(course.getTitle()!=null) old.setTitle(course.getTitle());
         if(course.getSummary()!=null) old.setSummary(course.getSummary());

@@ -12,9 +12,10 @@ public class Course {
     private String summary;//总结
     private String content;//内容
     private Integer likes;//点赞数
-    private List<courseCategory> categories;//分类
     private Integer status;
-    public Course(Long id, String title, String videoUrl, String coverImage, Integer duration, String author, String summary,String content, Integer likes, List<courseCategory> categories,Integer status) {
+    private List<courseCategory> categories;//分类
+    public Course() {}
+    public Course(Long id, String title, String videoUrl, String coverImage, Integer duration, String author, String summary,String content, Integer likes, Integer status, List<courseCategory> categories) {
         this.id = id;
         this.title = title;
         this.videoUrl = videoUrl;
@@ -24,8 +25,8 @@ public class Course {
         this.summary = summary;
         this.content = content;
         this.likes = likes;
-        this.categories = categories;
         this.status = status;
+        this.categories = categories;
     }
 
     // Getter 和 Setter 方法

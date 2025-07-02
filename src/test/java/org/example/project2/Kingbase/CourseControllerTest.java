@@ -90,7 +90,7 @@ public class CourseControllerTest {
         Course course = new Course(
                 1L, "Title", "videoUrl", "coverImage",
                 60, "author", "summary", "content",
-                10, null, 1
+                10, 1, null
         );
         course.setId(1L);
         when(courseService.getCourseById(1L)).thenReturn(course);
@@ -104,7 +104,7 @@ public class CourseControllerTest {
         Course course = new Course(
                 null, "Title", "videoUrl", "coverImage",
                 60, "author", "summary", "content",
-                0, null, 0
+                0, 0, null
         );
         when(courseService.addCourse(any())).thenReturn(1);
         ResponseEntity<Integer> response = controller.submit(course);
@@ -116,7 +116,7 @@ public class CourseControllerTest {
         Course course = new Course(
                 null, "Title", "videoUrl", "coverImage",
                 60, "author", "summary", "content",
-                0, null, 0
+                0, 0, null
         );
         when(courseService.addCourse(any())).thenReturn(0);
         ResponseEntity<Integer> response = controller.submit(course);
@@ -128,7 +128,7 @@ public class CourseControllerTest {
         Course course = new Course(
                 null, "Title", "videoUrl", "coverImage",
                 60, "author", "summary", "content",
-                0, null, 0
+                0, 0, null
         );
         when(courseService.addCourse(any())).thenReturn(1);
         ResponseEntity<Integer> response = controller.commit(course);
@@ -140,7 +140,7 @@ public class CourseControllerTest {
         Course course = new Course(
                 null, "Title", "videoUrl", "coverImage",
                 60, "author", "summary", "content",
-                0, null, 0
+                0, 0, null
         );
         when(courseService.addCourse(any())).thenReturn(0);
         ResponseEntity<Integer> response = controller.commit(course);
@@ -315,7 +315,7 @@ public class CourseControllerTest {
         Course course = new Course(
                 null, "Title", "videoUrl", "coverImage",
                 60, "author", "summary", "content",
-                10, null, 5
+                10, 5, null
         );
         when(courseService.addCourse(any())).thenReturn(1);
         
@@ -330,7 +330,7 @@ public class CourseControllerTest {
         Course course = new Course(
                 null, "Title", "videoUrl", "coverImage",
                 60, "author", "summary", "content",
-                10, null, 5
+                10, 5, null
         );
         when(courseService.addCourse(any())).thenReturn(1);
         
@@ -343,8 +343,8 @@ public class CourseControllerTest {
     @Test
     void testGetCourses_WithFilters() {
         List<Course> courseList = Arrays.asList(
-            new Course(1L, "Java Course", "video1", "cover1", 60, "author1", "summary1", "content1", 10, null, 1),
-            new Course(2L, "Python Course", "video2", "cover2", 90, "author2", "summary2", "content2", 20, null, 1)
+            new Course(1L, "Java Course", "video1", "cover1", 60, "author1", "summary1", "content1", 10, 1, null),
+            new Course(2L, "Python Course", "video2", "cover2", 90, "author2", "summary2", "content2", 20, 1, null)
         );
         PageResult<Course> pageResult = new PageResult<>(1, 10, 2L, courseList);
         
@@ -361,7 +361,7 @@ public class CourseControllerTest {
     @Test
     void testGetCoursesPersonal_WithStatus() {
         List<Course> courseList = Arrays.asList(
-            new Course(1L, "My Course", "video1", "cover1", 60, "user", "summary1", "content1", 10, null, 0)
+            new Course(1L, "My Course", "video1", "cover1", 60, "user", "summary1", "content1", 10, 0, null)
         );
         PageResult<Course> pageResult = new PageResult<>(1, 10, 1L, courseList);
         

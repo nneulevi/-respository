@@ -42,8 +42,8 @@ public class CourseServiceTest {
     void testGetCourses_Success() {
         // 准备测试数据
         List<Course> courseList = Arrays.asList(
-            new Course(1L, "Java Course", "video1", null, 60, "author1", "summary1", "content1", 10, null, 1),
-            new Course(2L, "Python Course", "video2", null, 90, "author2", "summary2", "content2", 20, null, 1)
+            new Course(1L, "Java Course", "video1", null, 60, "author1", "summary1", "content1", 10, 1, null),
+            new Course(2L, "Python Course", "video2", null, 90, "author2", "summary2", "content2", 20, 1, null)
         );
         List<courseCategory> categories = Arrays.asList(
             new courseCategory(1L, "Programming"),
@@ -81,7 +81,7 @@ public class CourseServiceTest {
     void testGetCoursesReady_Success() {
         // 准备测试数据
         List<Course> courseList = Arrays.asList(
-            new Course(1L, "Java Course", "video1", null, 60, "author1", "summary1", "content1", 10, null, 0)
+            new Course(1L, "Java Course", "video1", null, 60, "author1", "summary1", "content1", 10, 0, null)
         );
         List<courseCategory> categories = Arrays.asList(new courseCategory(1L, "Programming"));
         
@@ -109,7 +109,7 @@ public class CourseServiceTest {
     void testGetCourseByAuthor_Success() {
         // 准备测试数据
         List<Course> courseList = Arrays.asList(
-            new Course(1L, "My Course", "video1", null, 60, "user", "summary1", "content1", 10, null, 0)
+            new Course(1L, "My Course", "video1", null, 60, "user", "summary1", "content1", 10, 0, null)
         );
         List<courseCategory> categories = Arrays.asList(new courseCategory(1L, "Programming"));
         
@@ -135,7 +135,7 @@ public class CourseServiceTest {
     @Test
     void testGetCourseById_Success() {
         // 准备测试数据
-        Course course = new Course(1L, "Java Course", "video1", null, 60, "author1", "summary1", "content1", 10, null, 1);
+        Course course = new Course(1L, "Java Course", "video1", null, 60, "author1", "summary1", "content1", 10, 1, null);
         List<courseCategory> categories = Arrays.asList(new courseCategory(1L, "Programming"));
         
         // 模拟Mapper返回
@@ -174,7 +174,7 @@ public class CourseServiceTest {
     @Test
     void testAddCourse_Success() {
         // 准备测试数据
-        Course course = new Course(null, "New Course", "video1", null, 60, "author1", "summary1", "content1", 0, null, 0);
+        Course course = new Course(null, "New Course", "video1", null, 60, "author1", "summary1", "content1", 0, 0, null);
         course.setId(1L);
         List<courseCategory> categories = Arrays.asList(new courseCategory(1L, "Programming"));
         course.setCategories(categories);
@@ -197,7 +197,7 @@ public class CourseServiceTest {
     @Test
     void testAddCourse_WithoutCategories() {
         // 准备测试数据
-        Course course = new Course(null, "New Course", "video1", null, 60, "author1", "summary1", "content1", 0, null, 0);
+        Course course = new Course(null, "New Course", "video1", null, 60, "author1", "summary1", "content1", 0, 0, null);
         course.setId(1L);
         
         // 模拟Mapper返回
@@ -217,7 +217,7 @@ public class CourseServiceTest {
     @Test
     void testAddCourse_Failure() {
         // 准备测试数据
-        Course course = new Course(null, "New Course", "video1", null, 60, "author1", "summary1", "content1", 0, null, 0);
+        Course course = new Course(null, "New Course", "video1", null, 60, "author1", "summary1", "content1", 0, 0, null);
         course.setId(1L);
         
         // 模拟Mapper返回失败
@@ -254,7 +254,7 @@ public class CourseServiceTest {
     @Test
     void testUpdateCourse_Success() {
         // 准备测试数据
-        Course course = new Course(1L, "Updated Course", "video1", null, 60, "author1", "summary1", "content1", 10, null, 1);
+        Course course = new Course(1L, "Updated Course", "video1", null, 60, "author1", "summary1", "content1", 10, 1, null);
         List<courseCategory> categories = Arrays.asList(new courseCategory(1L, "Programming"));
         course.setCategories(categories);
         
@@ -278,7 +278,7 @@ public class CourseServiceTest {
     @Test
     void testUpdateCourse_WithoutCategories() {
         // 准备测试数据
-        Course course = new Course(1L, "Updated Course", "video1", null, 60, "author1", "summary1", "content1", 10, null, 1);
+        Course course = new Course(1L, "Updated Course", "video1", null, 60, "author1", "summary1", "content1", 10, 1, null);
         
         // 模拟Mapper返回
         when(courseMapper.deleteCourseCategoryMappings(1L)).thenReturn(1);
