@@ -38,7 +38,7 @@ public interface courseMapper {
 
     @Select({
             "<script>",
-            "SELECT DISTINCT c.id, c.title, c.videoUrl, c.coverImage, c.duration, c.author, c.summary, c.content, c.likes",
+            "SELECT COUNT(DISTINCT c.id)",
             "FROM course c",
             "LEFT JOIN course_category_mapping m ON c.id = m.courseId",
             "LEFT JOIN course_category cat ON m.categoryId = cat.id",
@@ -91,7 +91,7 @@ public interface courseMapper {
 
     @Select({
             "<script>",
-            "SELECT DISTINCT c.id, c.title, c.videoUrl, c.coverImage, c.duration, c.author, c.summary, c.content, c.likes",
+            "SELECT COUNT(DISTINCT c.id)",
             "FROM course c",
             "LEFT JOIN course_category_mapping m ON c.id = m.courseId",
             "LEFT JOIN course_category cat ON m.categoryId = cat.id",
@@ -173,7 +173,7 @@ public interface courseMapper {
 
     @Select({
             "<script>",
-            "SELECT DISTINCT c.id, c.title, c.videoUrl, c.coverImage, c.duration, c.author, c.summary, c.content, c.likes",
+            "SELECT COUNT(DISTINCT c.id)",
             "FROM course c",
             "LEFT JOIN course_category_mapping m ON c.id = m.courseId",
             "LEFT JOIN course_category cat ON m.categoryId = cat.id",
