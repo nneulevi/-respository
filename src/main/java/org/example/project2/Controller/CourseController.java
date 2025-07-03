@@ -7,6 +7,7 @@ import org.example.project2.entity.Course;
 import org.example.project2.entity.PageResult;
 import org.example.project2.entity.User_d;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.model.ChatModel;
