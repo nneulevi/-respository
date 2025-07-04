@@ -10,6 +10,7 @@ import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.*;
+import org.springframework.objenesis.SpringObjenesis;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.FileCopyUtils;
@@ -28,7 +29,7 @@ public class VideoSummaryService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    private File downloadVideo(String videoUrl) throws IOException {
+    public File downloadVideo(String videoUrl) throws IOException {
         File temp = File.createTempFile("video", ".mp4");
         try (InputStream in = new URL(videoUrl).openStream();
              OutputStream out = new FileOutputStream(temp)) {
@@ -37,7 +38,7 @@ public class VideoSummaryService {
         return temp;
     }
 
-    private File extractAudio(File videoFile) throws IOException, InterruptedException {
+    public File extractAudio(File videoFile) throws IOException, InterruptedException {
         File audioFile = new File(videoFile.getParent(), "audio.mp3");
         ProcessBuilder pb = new ProcessBuilder(
                 "ffmpeg", "-i", videoFile.getAbsolutePath(),
@@ -51,7 +52,7 @@ public class VideoSummaryService {
         return audioFile;
     }
 
-    private String transcribeAudio(File audioFile) {
+    public String transcribeAudio(File audioFile) {
         String url = "https://api.openai.com/v1/audio/transcriptions";
 
         LinkedMultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
@@ -74,7 +75,7 @@ public class VideoSummaryService {
         return (String) response.getBody().get("text");
     }
 
-    private String summarizeText(String transcript) {
+     public String summarizeText(String transcript) {
         Prompt prompt = new Prompt(List.of(
                 new SystemMessage("你是一个精通中文的视频总结助手，请根据用户提供的文字记录输出简洁、准确的中文总结。"),
                 new UserMessage("请总结以下视频内容：\n\n" + transcript)

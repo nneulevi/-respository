@@ -22,6 +22,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
+import org.example.project2.Mapper.comentsMapper;
+import org.example.project2.entity.coments;
 
 public class NewsControllerTest {
     
@@ -33,20 +35,25 @@ public class NewsControllerTest {
     @Mock
     private UserMapper userMapper;
     
+    @Mock
+    private comentsMapper comentsMapper;
+    
     @BeforeEach
     void setUp() {
         newsMapper = mock(NewsMapper.class);
         userMapper = mock(UserMapper.class);
-        
+        comentsMapper = mock(comentsMapper.class);
         newsController = new NewsController();
         try {
             var newsMapperField = NewsController.class.getDeclaredField("newsMapper");
             newsMapperField.setAccessible(true);
             newsMapperField.set(newsController, newsMapper);
-            
             var userMapperField = NewsController.class.getDeclaredField("userMapper");
             userMapperField.setAccessible(true);
             userMapperField.set(newsController, userMapper);
+            var comentsMapperField = NewsController.class.getDeclaredField("comentsMapper");
+            comentsMapperField.setAccessible(true);
+            comentsMapperField.set(newsController, comentsMapper);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -320,5 +327,78 @@ public class NewsControllerTest {
 
         assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
         assertEquals(-1, response.getBody());
+    }
+
+    // --- 新增：评论相关和新闻删除相关方法的测试 ---
+    @Test
+    void testAddComment() {
+        org.example.project2.entity.coments comment = new org.example.project2.entity.coments(1L, 1L, "内容", java.time.LocalDateTime.now(), 0, "author");
+        when(comentsMapper.insert(any())).thenReturn(1);
+        ResponseEntity<Integer> response = newsController.addComment(comment);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(1, response.getBody());
+    }
+
+    @Test
+    void testGetCommentsByTime() {
+        List<org.example.project2.entity.coments> list = Collections.singletonList(new org.example.project2.entity.coments(1L, 1L, "内容", java.time.LocalDateTime.now(), 0, "author"));
+        when(comentsMapper.findByNewsIdOrderByTime(anyLong(), anyInt(), anyInt())).thenReturn(list);
+        when(comentsMapper.countByNewsId(anyLong())).thenReturn(1L);
+        ResponseEntity<PageResult<org.example.project2.entity.coments>> response = newsController.getCommentsByTime(1L, 1, 10);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals(1, response.getBody().getList().size());
+    }
+
+    @Test
+    void testGetCommentsByLikes() {
+        List<org.example.project2.entity.coments> list = Collections.singletonList(new org.example.project2.entity.coments(1L, 1L, "内容", java.time.LocalDateTime.now(), 0, "author"));
+        when(comentsMapper.findByNewsIdOrderByLikes(anyLong(), anyInt(), anyInt())).thenReturn(list);
+        when(comentsMapper.countByNewsId(anyLong())).thenReturn(1L);
+        ResponseEntity<PageResult<org.example.project2.entity.coments>> response = newsController.getCommentsByLikes(1L, 1, 10);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertNotNull(response.getBody());
+        assertEquals(1, response.getBody().getList().size());
+    }
+
+    @Test
+    void testLikeComment() {
+        when(comentsMapper.likeComment(1L)).thenReturn(1);
+        ResponseEntity<Integer> response = newsController.likeComment(1L);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(1, response.getBody());
+    }
+
+    @Test
+    void testDeleteComment() {
+        when(comentsMapper.deleteById(1L)).thenReturn(1);
+        ResponseEntity<Integer> response = newsController.deleteComment(1L);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(1, response.getBody());
+    }
+
+    @Test
+    void testDeleteCommentsByNewsId() {
+        when(comentsMapper.deleteByNewsId(1L)).thenReturn(2);
+        ResponseEntity<Integer> response = newsController.deleteCommentsByNewsId(1L);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(2, response.getBody());
+    }
+
+    @Test
+    void testResourseOfComments() {
+        when(comentsMapper.findAuthorById(1L)).thenReturn("author");
+        ResponseEntity<String> response = newsController.resourseOfComments(1L);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("author", response.getBody());
+    }
+
+    @Test
+    void testDeleteNews() {
+        when(newsMapper.deleteById(1L)).thenReturn(1);
+        when(comentsMapper.deleteByNewsId(1L)).thenReturn(2);
+        ResponseEntity<Integer> response = newsController.deleteNews(1L);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(3, response.getBody());
     }
 } 
