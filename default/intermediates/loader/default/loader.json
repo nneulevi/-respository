@@ -1,0 +1,39 @@
+{
+  "modulePathMap": {
+    "entry": "D:\\DevEco\\cemenghui\\entry"
+  },
+  "compileMode": "esmodule",
+  "projectRootPath": "D:\\DevEco\\cemenghui",
+  "nodeModulesPath": "D:\\DevEco\\cemenghui\\entry\\.preview\\default\\intermediates\\loader_out\\default\\node_modules",
+  "byteCodeHarInfo": {},
+  "declarationEntry": [],
+  "moduleName": "entry",
+  "hspNameOhmMap": {},
+  "harNameOhmMap": {},
+  "packageManagerType": "ohpm",
+  "compileEntry": [
+    "D:\\DevEco\\cemenghui\\entry\\src\\main\\ets\\pages\\Start.ets",
+    "D:\\DevEco\\cemenghui\\entry\\src\\main\\ets\\pages\\Layout.ets"
+  ],
+  "otherCompileFiles": [],
+  "dynamicImportLibInfo": {},
+  "routerMap": [
+    {
+      "ohmurl": "@normalized:N&&&entry/src/main/ets/pages/Start&",
+      "name": "Start",
+      "pageSourceFile": "D:\\DevEco\\cemenghui\\entry\\src\\main\\ets\\pages\\Start.ets",
+      "buildFunction": "StarBuilder"
+    },
+    {
+      "ohmurl": "@normalized:N&&&entry/src/main/ets/pages/Layout&",
+      "name": "Layout",
+      "pageSourceFile": "D:\\DevEco\\cemenghui\\entry\\src\\main\\ets\\pages\\Layout.ets",
+      "buildFunction": "LayoutBuilder"
+    }
+  ],
+  "hspResourcesMap": {},
+  "updateVersionInfo": {},
+  "anBuildOutPut": "D:\\DevEco\\cemenghui\\entry\\.preview\\default\\intermediates\\loader_out\\default\\an\\arm64-v8a",
+  "anBuildMode": "type",
+  "buildConfigPath": ".preview\\config\\buildConfig.json"
+}
