@@ -1,0 +1,84 @@
+{
+  "routerMap": [
+    {
+      "name": "Start",
+      "pageSourceFile": "src/main/ets/pages/Start.ets",
+      "buildFunction": "StarBuilder",
+      "data": {
+        "description": "this is Start"
+      }
+    },
+    {
+      "name": "Layout",
+      "pageSourceFile": "src/main/ets/pages/Layout.ets",
+      "buildFunction": "LayoutBuilder",
+      "data": {
+        "description": "this is Start"
+      }
+    },
+    {
+      "name": "dyDetail1",
+      "pageSourceFile": "src/main/ets/pages/dyDetail1.ets",
+      "buildFunction": "dyDetailBuilder",
+      "data": {
+        "description": "this is dyDetail"
+      }
+    },
+    {
+      "name": "dyDetail2",
+      "pageSourceFile": "src/main/ets/pages/dyDetail2.ets",
+      "buildFunction": "dyDetailBuilder",
+      "data": {
+        "description": "this is dyDetail"
+      }
+    },
+    {
+      "name": "Play",
+      "pageSourceFile": "src/main/ets/pages/Play.ets",
+      "buildFunction": "dyDetailBuilder",
+      "data": {
+        "description": "this is dyDetail"
+      }
+    },
+    {
+      "name": "meet",
+      "pageSourceFile": "src/main/ets/pages/meet.ets",
+      "buildFunction": "dyDetailBuilder",
+      "data": {
+        "description": "this is dyDetail"
+      }
+    },
+    {
+      "name": "public",
+      "pageSourceFile": "src/main/ets/pages/public.ets",
+      "buildFunction": "dyDetailBuilder",
+      "data": {
+        "description": "this is dyDetail"
+      }
+    },
+    {
+      "name": "stand",
+      "pageSourceFile": "src/main/ets/pages/stand.ets",
+      "buildFunction": "dyDetailBuilder",
+      "data": {
+        "description": "this is dyDetail"
+      }
+    },
+    {
+      "name": "search",
+      "pageSourceFile": "src/main/ets/pages/search.ets",
+      "buildFunction": "dyDetailBuilder",
+      "data": {
+        "description": "this is dyDetail"
+      }
+    },
+    {
+      "name": "tool",
+      "pageSourceFile": "src/main/ets/pages/tool.ets",
+      "buildFunction": "dyDetailBuilder",
+      "data": {
+        "description": "this is dyDetail"
+      }
+    }
+  ]
+}
